@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #4a4a4a;
+  background-color: #3a3a3a;
   /* Slightly lighter gray for input container */
   padding: 10px;
   border-radius: 8px;
@@ -20,23 +20,24 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
 }
 
 .prompt-input-container .input-wrapper {
   display: flex;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 
 .prompt-input-container textarea {
   flex: 1;
-  padding: 10px;
+  padding: 10px 40px 10px 10px;
+  /* Add padding to the right for the character count */
   margin-right: 10px;
   border: 1px solid #ccc;
   border-radius: 30px;
   /* Rounded corners for pill shape */
-  background-color: #3a3a3a;
+  background-color: #2e2e2e;
   /* Dark gray background */
   color: #f0f0f0;
   /* Light gray text */
@@ -48,16 +49,12 @@
 }
 
 .prompt-input-container .character-count {
-  text-align: right;
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
   font-size: 0.9em;
   color: #bbb;
   /* Light gray for character count */
-  margin-bottom: 10px;
-}
-
-.prompt-input-container .error {
-  color: red;
-  margin-bottom: 10px;
 }
 
 .prompt-input-container button {
@@ -78,4 +75,9 @@
 .prompt-input-container button:disabled {
   background-color: #555;
   /* Dark gray for disabled button */
+}
+
+.prompt-input-container button i {
+  font-size: 1.2em;
+  /* Ensure icon is visible */
 }

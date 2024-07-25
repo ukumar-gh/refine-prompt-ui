@@ -1,22 +1,16 @@
 <!-- src/app/app.component.html -->
 <div class="app-container">
-  <header>
-    <h1>{{ title }}</h1>
-  </header>
-
+  <header>Prompt Refining Assistant</header>
   <main>
     <div class="chat-container">
       <div *ngFor="let message of messages"
         [ngClass]="{'user-message': message.role === 'user', 'assistant-message': message.role === 'assistant'}">
-        <p>{{ message.content }}</p>
+        {{ message.content }}
       </div>
       <div *ngIf="loading" class="loading-message">AI is thinking...</div>
     </div>
-    <app-prompt-input (newMessage)="onNewMessage($event)" (loadingStatus)="onLoadingStatus($event)"
+    <app-prompt-input (newMessage)="handleNewMessage($event)" (loadingStatus)="handleLoadingStatus($event)"
       [loading]="loading"></app-prompt-input>
   </main>
-
-  <footer>
-    <p>&copy; 2024 Refine Prompt. All rights reserved.</p>
-  </footer>
+  <footer>&copy; 2024 Prompt Refining Assistant</footer>
 </div>
