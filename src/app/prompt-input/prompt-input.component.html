@@ -1,15 +1,14 @@
 <!-- src/app/prompt-input/prompt-input.component.html -->
 <div class="prompt-input-container">
-  <form (ngSubmit)="onSubmit()">
-    <div>
-      <label for="prompt">Enter your prompt:</label>
-      <textarea id="prompt" [(ngModel)]="prompt" name="prompt" rows="3" (input)="onInput($event)"
-        placeholder="Type your message..."></textarea>
-      <div class="character-count">{{ characterCount }}/{{ characterLimit }}</div>
-      <div *ngIf="prompt.length > characterLimit" class="error">
-        Prompt exceeds the character limit of {{ characterLimit }} characters.
-      </div>
+  <form (submit)="onSubmit()">
+    <label for="prompt">Enter your prompt:</label>
+    <div class="input-wrapper">
+      <textarea id="prompt" [(ngModel)]="prompt" (input)="onInput($event)" rows="1" placeholder="Type your message..."
+        required></textarea>
+      <button type="submit" [disabled]="prompt.length > characterLimit || loading">
+        <i class="fas fa-arrow-up"></i> <!-- Font Awesome up arrow icon -->
+      </button>
     </div>
-    <button type="submit" [disabled]="loading || prompt.length > characterLimit">Submit</button>
+    <div class="character-count">{{ characterCount }}/{{ characterLimit }}</div>
   </form>
 </div>

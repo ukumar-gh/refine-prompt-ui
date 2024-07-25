@@ -23,6 +23,8 @@ export class PromptInputComponent {
     if (input.value.length <= this.characterLimit) {
       this.prompt = input.value;
       this.characterCount = input.value.length;
+      input.style.height = 'auto'; // Reset height
+      input.style.height = input.scrollHeight + 'px'; // Set height based on scroll height
     } else {
       input.value = this.prompt; // Prevent further input if limit is reached
     }
