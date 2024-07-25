@@ -1,0 +1,19 @@
+<div class="prompt-input-container">
+  <form (ngSubmit)="onSubmit()">
+    <div>
+      <label for="prompt">Enter your prompt:</label>
+      <textarea id="prompt" [(ngModel)]="prompt" name="prompt" rows="5" maxlength="{{characterLimit}}"></textarea>
+      <div *ngIf="prompt.length > characterLimit" class="error">
+        Prompt exceeds the character limit of {{characterLimit}} characters.
+      </div>
+    </div>
+    <button type="submit" [disabled]="loading || prompt.length > characterLimit">Submit</button>
+  </form>
+  <div *ngIf="loading" class="loading">
+    AI is thinking...
+  </div>
+  <div *ngIf="response">
+    <h3>Response:</h3>
+    <p>{{ response }}</p>
+  </div>
+</div>
