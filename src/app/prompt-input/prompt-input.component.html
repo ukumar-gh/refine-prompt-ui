@@ -1,11 +1,7 @@
-<!-- src/app/prompt-input/prompt-input.component.html -->
-<div class="prompt-input-container">
-  <form (submit)="onSubmit($event)">
-    <textarea id="prompt" [(ngModel)]="prompt" (input)="onInput($event)" (keypress)="onKeyPress($event)" rows="1"
-      placeholder="Enter your prompt..." required>
-    </textarea>
-    <button type="submit" [disabled]="prompt.length > characterLimit || loading">
-      <i class="fas fa-arrow-up"></i> <!-- Font Awesome up arrow icon -->
-    </button>
-  </form>
-</div>
+<form (submit)="onSubmit($event)">
+  <textarea placeholder="Enter your prompt..." [(ngModel)]="prompt" (input)="onInput($event)"
+    (keypress)="onKeyPress($event)" [ngModelOptions]="{ standalone: true }"></textarea>
+  <button type="submit">
+    <i class="fa fa-arrow-up"></i>
+  </button>
+</form>

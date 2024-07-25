@@ -1,4 +1,3 @@
-// src/app/prompt-input/prompt-input.component.ts
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -34,6 +33,11 @@ export class PromptInputComponent {
       event.preventDefault(); // Prevent default form submission behavior
     }
 
+    if (this.prompt.trim().length === 0) {
+      alert('Prompt cannot be empty');
+      return;
+    }
+
     if (this.prompt.length > this.characterLimit) {
       alert(`Character limit of ${this.characterLimit} exceeded!`);
       return;
@@ -48,6 +52,7 @@ export class PromptInputComponent {
           this.newMessage.emit({ role: 'assistant', content: data.refinedPrompt });
           this.loadingStatus.emit(false);
           this.prompt = ''; // Clear the input field
+          (event?.target as HTMLTextAreaElement).value = ''; // Clear the textarea
         },
         error: (error) => {
           console.error('Error refining prompt:', error);

@@ -1,1 +1,123 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+body {
+  background-color: #2e2e2e;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+main {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.chat-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.user-message,
+.assistant-message {
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.user-message {
+  background-color: #1e1e1e;
+  align-self: flex-end;
+  border: 1px solid #007bff;
+}
+
+.assistant-message {
+  background-color: #444;
+  align-self: flex-start;
+}
+
+.loading-message {
+  text-align: center;
+  font-style: italic;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #1e1e1e;
+}
+
+/* Prompt input styles */
+form {
+  display: flex;
+  align-items: center;
+}
+
+textarea {
+  flex: 1;
+  padding: 10px 20px;
+  border: 1px solid #007bff;
+  border-radius: 50px;
+  background-color: #3a3a3a;
+  color: #fff;
+  resize: none;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 1.5;
+  box-sizing: border-box;
+  height: auto;
+  /* Let the height adjust based on content */
+  min-height: 40px;
+  /* Minimum height to appear as a single line */
+  max-height: 100px;
+  /* Maximum height before scrolling */
+}
+
+textarea::placeholder {
+  color: #bbb;
+  text-align: left;
+  /* Align placeholder text to the left */
+  padding-left: 10px;
+  /* Add padding to move placeholder text to the right */
+  line-height: 40px;
+  /* Vertically center the placeholder text */
+}
+
+button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+button:focus {
+  outline: none;
+}
+
+button i {
+  font-size: 20px;
+}

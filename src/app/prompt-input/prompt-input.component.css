@@ -50,3 +50,13 @@
 .prompt-input-container button i {
   font-size: 1.2em;
 }
+
+/* Ensure the textarea and button are not squished */
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button {
+  flex-shrink: 0;
+}
