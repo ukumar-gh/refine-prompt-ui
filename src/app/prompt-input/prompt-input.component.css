@@ -3,81 +3,50 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #3a3a3a;
-  /* Slightly lighter gray for input container */
   padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
-  /* Ensure it takes full width */
   max-width: 800px;
-  /* Max width for better readability */
   margin: auto;
-  /* Center align */
 }
 
 .prompt-input-container form {
   width: 100%;
   display: flex;
-  flex-direction: column;
-}
-
-.prompt-input-container .input-wrapper {
-  display: flex;
   align-items: center;
-  width: 100%;
   position: relative;
 }
 
 .prompt-input-container textarea {
   flex: 1;
-  padding: 10px 40px 10px 10px;
-  /* Add padding to the right for the character count */
-  margin-right: 10px;
+  padding: 10px 20px;
   border: 1px solid #ccc;
   border-radius: 30px;
-  /* Rounded corners for pill shape */
   background-color: #2e2e2e;
-  /* Dark gray background */
   color: #f0f0f0;
-  /* Light gray text */
   resize: none;
-  /* Prevent resizing */
-  box-sizing: border-box;
-  /* Include padding and border in the element's total width and height */
   overflow: hidden;
-}
-
-.prompt-input-container .character-count {
-  position: absolute;
-  right: 20px;
-  bottom: 10px;
-  font-size: 0.9em;
-  color: #bbb;
-  /* Light gray for character count */
+  box-sizing: border-box;
 }
 
 .prompt-input-container button {
   background-color: #007bff;
-  /* Dark blue background */
   color: white;
   border: none;
   border-radius: 50%;
-  /* Rounded button */
   cursor: pointer;
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 10px;
+  /* Add space between button and text area */
 }
 
 .prompt-input-container button:disabled {
   background-color: #555;
-  /* Dark gray for disabled button */
 }
 
 .prompt-input-container button i {
   font-size: 1.2em;
-  /* Ensure icon is visible */
 }

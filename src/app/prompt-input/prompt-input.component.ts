@@ -14,7 +14,6 @@ export class PromptInputComponent {
 
   prompt: string = '';
   characterLimit: number = 300;
-  characterCount: number = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -22,16 +21,21 @@ export class PromptInputComponent {
     const input = event.target as HTMLTextAreaElement;
     if (input.value.length <= this.characterLimit) {
       this.prompt = input.value;
-      this.characterCount = input.value.length;
       input.style.height = 'auto'; // Reset height
       input.style.height = input.scrollHeight + 'px'; // Set height based on scroll height
     } else {
+      alert(`Character limit of ${this.characterLimit} exceeded!`);
       input.value = this.prompt; // Prevent further input if limit is reached
     }
   }
 
-  onSubmit() {
+  onSubmit(event?: Event) {
+    if (event) {
+      event.preventDefault(); // Prevent default form submission behavior
+    }
+
     if (this.prompt.length > this.characterLimit) {
+      alert(`Character limit of ${this.characterLimit} exceeded!`);
       return;
     }
 
@@ -43,14 +47,18 @@ export class PromptInputComponent {
         next: (data) => {
           this.newMessage.emit({ role: 'assistant', content: data.refinedPrompt });
           this.loadingStatus.emit(false);
+          this.prompt = ''; // Clear the input field
         },
         error: (error) => {
           console.error('Error refining prompt:', error);
           this.loadingStatus.emit(false);
         }
       });
+  }
 
-    this.prompt = '';
-    this.characterCount = 0;
+  onKeyPress(event: KeyboardEvent) {
+    if (event.key === 'Enter' && !event.shiftKey) {
+      this.onSubmit(event);
+    }
   }
 }
