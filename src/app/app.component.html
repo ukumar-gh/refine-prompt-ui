@@ -10,8 +10,10 @@
         [ngClass]="{'user-message': message.role === 'user', 'assistant-message': message.role === 'assistant'}">
         <p>{{ message.content }}</p>
       </div>
+      <div *ngIf="loading" class="loading-message">AI is thinking...</div>
     </div>
-    <app-prompt-input (newMessage)="onNewMessage($event)" (loadingStatus)="onLoadingStatus($event)"></app-prompt-input>
+    <app-prompt-input (newMessage)="onNewMessage($event)" (loadingStatus)="onLoadingStatus($event)"
+      [loading]="loading"></app-prompt-input>
   </main>
 
   <footer>

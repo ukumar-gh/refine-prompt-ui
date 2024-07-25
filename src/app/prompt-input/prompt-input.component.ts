@@ -14,8 +14,19 @@ export class PromptInputComponent {
 
   prompt: string = '';
   characterLimit: number = 300;
+  characterCount: number = 0;
 
   constructor(private http: HttpClient) {}
+
+  onInput(event: Event) {
+    const input = event.target as HTMLTextAreaElement;
+    if (input.value.length <= this.characterLimit) {
+      this.prompt = input.value;
+      this.characterCount = input.value.length;
+    } else {
+      input.value = this.prompt; // Prevent further input if limit is reached
+    }
+  }
 
   onSubmit() {
     if (this.prompt.length > this.characterLimit) {
@@ -38,5 +49,6 @@ export class PromptInputComponent {
       });
 
     this.prompt = '';
+    this.characterCount = 0;
   }
 }

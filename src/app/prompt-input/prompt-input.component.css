@@ -3,11 +3,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f0f0f0;
-  /* Light gray background */
+  background-color: #3a3a3a;
+  /* Slightly lighter gray for input container */
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  /* Ensure it takes full width */
+  max-width: 800px;
+  /* Max width for better readability */
+  margin: auto;
+  /* Center align */
 }
 
 .prompt-input-container form {
@@ -23,8 +29,22 @@
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #ffffff;
-  /* White background for textarea */
+  background-color: #2e2e2e;
+  /* Dark gray background */
+  color: #f0f0f0;
+  /* Light gray text */
+  resize: none;
+  /* Prevent resizing */
+  box-sizing: border-box;
+  /* Include padding and border in the element's total width and height */
+}
+
+.prompt-input-container .character-count {
+  text-align: right;
+  font-size: 0.9em;
+  color: #bbb;
+  /* Light gray for character count */
+  margin-bottom: 10px;
 }
 
 .prompt-input-container .error {
@@ -36,6 +56,7 @@
   align-self: flex-end;
   padding: 10px 20px;
   background-color: #007bff;
+  /* Dark blue background */
   color: white;
   border: none;
   border-radius: 4px;
@@ -43,5 +64,6 @@
 }
 
 .prompt-input-container button:disabled {
-  background-color: #ccc;
+  background-color: #555;
+  /* Dark gray for disabled button */
 }

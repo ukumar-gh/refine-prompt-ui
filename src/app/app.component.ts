@@ -12,7 +12,7 @@ interface Message {
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'refine-prompt-ui';
+  title = 'Prompt Refiner v4o-mini'; // Updated title
   messages: Message[] = [];
   loading: boolean = false;
 

@@ -3,10 +3,11 @@
   <form (ngSubmit)="onSubmit()">
     <div>
       <label for="prompt">Enter your prompt:</label>
-      <textarea id="prompt" [(ngModel)]="prompt" name="prompt" rows="3" maxlength="{{characterLimit}}"
+      <textarea id="prompt" [(ngModel)]="prompt" name="prompt" rows="3" (input)="onInput($event)"
         placeholder="Type your message..."></textarea>
+      <div class="character-count">{{ characterCount }}/{{ characterLimit }}</div>
       <div *ngIf="prompt.length > characterLimit" class="error">
-        Prompt exceeds the character limit of {{characterLimit}} characters.
+        Prompt exceeds the character limit of {{ characterLimit }} characters.
       </div>
     </div>
     <button type="submit" [disabled]="loading || prompt.length > characterLimit">Submit</button>
