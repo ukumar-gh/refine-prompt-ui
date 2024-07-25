@@ -30,7 +30,7 @@ export class PromptInputComponent {
 
   onSubmit(event?: Event) {
     if (event) {
-      event.preventDefault(); // Prevent default form submission behavior
+      event.preventDefault();
     }
 
     if (this.prompt.trim().length === 0) {
@@ -43,16 +43,19 @@ export class PromptInputComponent {
       return;
     }
 
-    this.newMessage.emit({ role: 'user', content: this.prompt });
+    const userPrompt = this.prompt; // Store the current prompt
+
+    this.newMessage.emit({ role: 'user', content: userPrompt });
     this.loadingStatus.emit(true);
 
-    this.http.post<{ refinedPrompt: string }>('http://localhost:3000/refine-prompt', { prompt: this.prompt })
+    this.prompt = ''; // Clear the input field immediately
+    (event?.target as HTMLTextAreaElement).value = ''; // Clear the textarea immediately
+
+    this.http.post<{ refinedPrompt: string }>('http://localhost:3000/refine-prompt', { prompt: userPrompt })
       .subscribe({
         next: (data) => {
           this.newMessage.emit({ role: 'assistant', content: data.refinedPrompt });
           this.loadingStatus.emit(false);
-          this.prompt = ''; // Clear the input field
-          (event?.target as HTMLTextAreaElement).value = ''; // Clear the textarea
         },
         error: (error) => {
           console.error('Error refining prompt:', error);
