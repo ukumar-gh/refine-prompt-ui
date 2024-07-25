@@ -79,7 +79,7 @@ textarea {
   resize: none;
   overflow: hidden;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 20px;
   box-sizing: border-box;
   height: auto;
   /* Let the height adjust based on content */
@@ -93,9 +93,7 @@ textarea::placeholder {
   color: #bbb;
   text-align: left;
   /* Align placeholder text to the left */
-  padding-left: 10px;
-  /* Add padding to move placeholder text to the right */
-  line-height: 40px;
+  line-height: 20px;
   /* Vertically center the placeholder text */
 }
 
