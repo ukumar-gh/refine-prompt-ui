@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+// src/app/prompt-input/prompt-input.component.ts
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -7,9 +8,11 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./prompt-input.component.css']
 })
 export class PromptInputComponent {
+  @Output() newMessage = new EventEmitter<{ role: 'user' | 'assistant', content: string }>();
+  @Output() loadingStatus = new EventEmitter<boolean>();
+  @Input() loading: boolean = false;
+
   prompt: string = '';
-  response: string | null = null;
-  loading: boolean = false;
   characterLimit: number = 300;
 
   constructor(private http: HttpClient) {}
@@ -19,19 +22,21 @@ export class PromptInputComponent {
       return;
     }
 
-    this.loading = true;
-    this.response = null;
+    this.newMessage.emit({ role: 'user', content: this.prompt });
+    this.loadingStatus.emit(true);
 
     this.http.post<{ refinedPrompt: string }>('http://localhost:3000/refine-prompt', { prompt: this.prompt })
       .subscribe({
         next: (data) => {
-          this.response = data.refinedPrompt;
-          this.loading = false;
+          this.newMessage.emit({ role: 'assistant', content: data.refinedPrompt });
+          this.loadingStatus.emit(false);
         },
         error: (error) => {
           console.error('Error refining prompt:', error);
-          this.loading = false;
+          this.loadingStatus.emit(false);
         }
       });
+
+    this.prompt = '';
   }
 }

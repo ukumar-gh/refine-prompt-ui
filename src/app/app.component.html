@@ -1,13 +1,20 @@
+<!-- src/app/app.component.html -->
 <div class="app-container">
   <header>
-    <h1>Refine Prompt UI</h1>
+    <h1>{{ title }}</h1>
   </header>
 
   <main>
-    <app-prompt-input></app-prompt-input>
+    <div class="chat-container">
+      <div *ngFor="let message of messages"
+        [ngClass]="{'user-message': message.role === 'user', 'assistant-message': message.role === 'assistant'}">
+        <p>{{ message.content }}</p>
+      </div>
+    </div>
+    <app-prompt-input (newMessage)="onNewMessage($event)" (loadingStatus)="onLoadingStatus($event)"></app-prompt-input>
   </main>
 
   <footer>
-    <p>&copy; 2024 Refine Prompt UI. All rights reserved.</p>
+    <p>&copy; 2024 Refine Prompt. All rights reserved.</p>
   </footer>
 </div>

@@ -1,37 +1,40 @@
 /* src/app/prompt-input/prompt-input.component.css */
 .prompt-input-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f0f0f0;
+  /* Light gray background */
+  padding: 10px;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .prompt-input-container form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.prompt-input-container label {
-  margin-bottom: 8px;
-  font-weight: bold;
+  align-items: stretch;
 }
 
 .prompt-input-container textarea {
-  margin-bottom: 8px;
-  padding: 8px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  background-color: #ffffff;
+  /* White background for textarea */
 }
 
 .prompt-input-container .error {
   color: red;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .prompt-input-container button {
-  padding: 10px;
+  align-self: flex-end;
+  padding: 10px 20px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -41,13 +44,4 @@
 
 .prompt-input-container button:disabled {
   background-color: #ccc;
-}
-
-.prompt-input-container .loading {
-  margin-top: 10px;
-  font-style: italic;
-}
-
-.prompt-input-container .response {
-  margin-top: 20px;
 }
