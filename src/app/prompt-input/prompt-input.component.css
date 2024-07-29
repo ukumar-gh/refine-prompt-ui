@@ -28,6 +28,20 @@
   box-sizing: border-box;
 }
 
+#streaming-textarea {
+  width: 100%;
+  max-width: 800px;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  background-color: #2e2e2e;
+  color: #f0f0f0;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  margin-top: 10px;
+}
+
 .prompt-input-container button {
   background-color: #007bff;
   color: white;
