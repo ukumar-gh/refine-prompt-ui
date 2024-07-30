@@ -1,0 +1,9 @@
+.stream-output-container {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 10px;
+  background-color: #f5f5f5;
+  color: #000;
+  border-radius: 5px;
+  margin-top: 20px;
+}

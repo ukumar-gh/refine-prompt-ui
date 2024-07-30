@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -6,25 +6,18 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './prompt-input.component.html',
   styleUrls: ['./prompt-input.component.css']
 })
-export class PromptInputComponent implements OnInit, OnDestroy {
+export class PromptInputComponent implements OnInit {
   @Output() newMessage = new EventEmitter<{ role: 'user' | 'assistant', content: string }>();
   @Output() loadingStatus = new EventEmitter<boolean>();
   @Input() loading: boolean = false;
 
   prompt: string = '';
   characterLimit: number = 1000;
-  private partialText: string = '';
-  private eventSource: EventSource | null = null;
+  userPrompt: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   ngOnInit() {}
-
-  ngOnDestroy() {
-    if (this.eventSource) {
-      this.eventSource.close();
-    }
-  }
 
   onInput(event: Event) {
     const input = event.target as HTMLTextAreaElement;
@@ -53,74 +46,15 @@ export class PromptInputComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const userPrompt = this.prompt; // Store the current prompt
-
-    this.newMessage.emit({ role: 'user', content: userPrompt });
+    this.userPrompt = this.prompt; // Set the current prompt for streaming
+    this.newMessage.emit({ role: 'user', content: this.prompt });
     this.loadingStatus.emit(true);
-
     this.prompt = ''; // Clear the input field immediately
-
-    // Use the streaming endpoint for testing
-    this.streamRefinePrompt(userPrompt);
   }
 
   onKeyPress(event: KeyboardEvent) {
     if (event.key === 'Enter' && !event.shiftKey) {
       this.onSubmit(event);
     }
-  }
-
-  // Stream endpoint
-  async streamRefinePrompt(userPrompt: string) {
-    try {
-      const response = await fetch('http://localhost:3000/refine-prompt', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ prompt: userPrompt })
-      });
-
-      const reader = response.body?.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let partialText = '';
-
-      if (reader) {
-        const processText = async ({ done, value }: ReadableStreamReadResult<Uint8Array>) => {
-          if (done) {
-            console.log('Stream complete');
-            this.loadingStatus.emit(false);
-            return;
-          }
-
-          if (value) {
-            partialText += decoder.decode(value, { stream: true });
-            const messages = partialText.split('\n\n');
-            this.partialText = messages.map(message => message.replace(/^data:\s+/gm, '')).join('');
-            this.newMessage.emit({ role: 'assistant', content: this.partialText }); // Emit the updated partialText
-          }
-
-          reader.read().then(processText).catch(error => {
-            console.error('Error processing text:', error);
-            this.loadingStatus.emit(false);
-          });
-        };
-
-        reader.read().then(processText).catch(error => {
-          console.error('Error processing text:', error);
-          this.loadingStatus.emit(false);
-        });
-      } else {
-        this.loadingStatus.emit(false);
-        console.error('No response body');
-      }
-    } catch (error) {
-      console.error('Error refining prompt:', error);
-      this.loadingStatus.emit(false);
-    }
-  }
-
-  formatText(text: string): string {
-    return text.replace(/data:\s*/g, ' ').replace(/\n\s*\n/g, '\n\n');
   }
 }

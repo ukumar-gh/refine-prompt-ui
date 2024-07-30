@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { PromptInputComponent } from './prompt-input/prompt-input.component';
+import { StreamOutputComponent } from './stream-output/stream-output.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PromptInputComponent
+    PromptInputComponent,
+    StreamOutputComponent
   ],
   imports: [
     BrowserModule,
