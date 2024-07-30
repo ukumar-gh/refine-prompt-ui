@@ -96,7 +96,8 @@ export class PromptInputComponent implements OnInit, OnDestroy {
 
           if (value) {
             partialText += decoder.decode(value, { stream: true });
-            this.partialText = partialText;
+            const messages = partialText.split('\n\n');
+            this.partialText = messages.map(message => message.replace(/^data:\s+/gm, '')).join('');
             this.updateTextarea();
           }
 
