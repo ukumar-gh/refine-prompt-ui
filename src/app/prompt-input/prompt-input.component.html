@@ -1,9 +1,10 @@
-<form (submit)="onSubmit($event)">
-  <textarea placeholder="Enter your prompt..." [(ngModel)]="prompt" (input)="onInput($event)"
-    (keypress)="onKeyPress($event)" [ngModelOptions]="{ standalone: true }"></textarea>
-  <button type="submit">
-    <i class="fa fa-arrow-up"></i>
-  </button>
-</form>
-
-<textarea id="streaming-textarea" readonly></textarea>
+<div class="prompt-input-container">
+  <form (submit)="onSubmit($event)">
+    <textarea placeholder="Enter your prompt..." [(ngModel)]="prompt" (input)="onInput($event)"
+      (keypress)="onKeyPress($event)" [ngModelOptions]="{ standalone: true }"></textarea>
+    <button type="submit">
+      <i class="fa fa-arrow-up"></i>
+    </button>
+  </form>
+  <textarea id="streaming-textarea" readonly></textarea>
+</div>

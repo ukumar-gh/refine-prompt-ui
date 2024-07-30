@@ -1,4 +1,3 @@
-/* src/app/prompt-input/prompt-input.component.css */
 .prompt-input-container {
   display: flex;
   flex-direction: column;
@@ -40,6 +39,8 @@
   overflow: hidden;
   box-sizing: border-box;
   margin-top: 10px;
+  white-space: pre-wrap;
+  /* Preserve whitespace */
 }
 
 .prompt-input-container button {
@@ -54,7 +55,6 @@
   justify-content: center;
   align-items: center;
   margin-left: 10px;
-  /* Add space between button and text area */
 }
 
 .prompt-input-container button:disabled {
@@ -65,7 +65,6 @@
   font-size: 1.2em;
 }
 
-/* Ensure the textarea and button are not squished */
 textarea {
   width: 100%;
   box-sizing: border-box;

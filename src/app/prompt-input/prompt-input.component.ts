@@ -96,8 +96,7 @@ export class PromptInputComponent implements OnInit, OnDestroy {
 
           if (value) {
             partialText += decoder.decode(value, { stream: true });
-            const messages = partialText.split('\n\n');
-            this.partialText = messages.map(message => message.replace(/^data:\s+/gm, '')).join('');
+            this.partialText = this.formatText(partialText);
             this.updateTextarea();
           }
 
@@ -119,6 +118,10 @@ export class PromptInputComponent implements OnInit, OnDestroy {
       console.error('Error refining prompt:', error);
       this.loadingStatus.emit(false);
     }
+  }
+
+  formatText(text: string): string {
+    return text.replace(/data:\s*/g, ' ').replace(/\n\s*\n/g, '\n\n');
   }
 
   // Dynamically update textarea size
