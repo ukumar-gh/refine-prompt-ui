@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-stream-output',
@@ -7,6 +7,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@
 })
 export class StreamOutputComponent implements OnInit, OnChanges, OnDestroy {
   @Input() userPrompt: string = '';
+  @Output() streamComplete = new EventEmitter<void>();
   displayedText: string = '';
   private controller: AbortController | null = null;
 
@@ -55,6 +56,7 @@ export class StreamOutputComponent implements OnInit, OnChanges, OnDestroy {
       const processText = async ({ done, value }: ReadableStreamReadResult<Uint8Array>) => {
         if (done) {
           console.log('Stream complete');
+          this.streamComplete.emit();
           return;
         }
 

@@ -10,7 +10,7 @@
     </div>
     <app-prompt-input (newMessage)="handleNewMessage($event)" (loadingStatus)="handleLoadingStatus($event)"
       [loading]="loading"></app-prompt-input>
-    <app-stream-output [userPrompt]="userPrompt"></app-stream-output>
+    <app-stream-output [userPrompt]="userPrompt" (streamComplete)="handleStreamComplete()"></app-stream-output>
   </main>
   <footer>&copy; 2024 Prompt Refining Assistant</footer>
 </div>

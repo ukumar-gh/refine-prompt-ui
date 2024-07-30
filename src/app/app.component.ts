@@ -6,6 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   messages: { role: 'user' | 'assistant', content: string }[] = [];
   loading: boolean = false;
   userPrompt: string = '';
@@ -19,5 +22,9 @@ export class AppComponent {
 
   handleLoadingStatus(status: boolean) {
     this.loading = status;
+  }
+
+  handleStreamComplete() {
+    this.loading = false;
   }
 }
