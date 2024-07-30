@@ -89,15 +89,15 @@ export class PromptInputComponent implements OnInit, OnDestroy {
         const processText = async ({ done, value }: ReadableStreamReadResult<Uint8Array>) => {
           if (done) {
             console.log('Stream complete');
-            this.newMessage.emit({ role: 'assistant', content: this.partialText });
             this.loadingStatus.emit(false);
             return;
           }
 
           if (value) {
             partialText += decoder.decode(value, { stream: true });
-            this.partialText = this.formatText(partialText);
-            this.updateTextarea();
+            const messages = partialText.split('\n\n');
+            this.partialText = messages.map(message => message.replace(/^data:\s+/gm, '')).join('');
+            this.newMessage.emit({ role: 'assistant', content: this.partialText }); // Emit the updated partialText
           }
 
           reader.read().then(processText).catch(error => {
@@ -122,15 +122,5 @@ export class PromptInputComponent implements OnInit, OnDestroy {
 
   formatText(text: string): string {
     return text.replace(/data:\s*/g, ' ').replace(/\n\s*\n/g, '\n\n');
-  }
-
-  // Dynamically update textarea size
-  updateTextarea() {
-    const textarea = document.getElementById('streaming-textarea') as HTMLTextAreaElement;
-    if (textarea) {
-      textarea.value = this.partialText;
-      textarea.style.height = 'auto';
-      textarea.style.height = textarea.scrollHeight + 'px';
-    }
   }
 }
