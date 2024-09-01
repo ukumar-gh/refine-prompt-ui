@@ -51,7 +51,7 @@ export class StreamOutputComponent implements OnInit, OnChanges, OnDestroy {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder('utf-8');
-      let partialText = '';
+      let buffer = '';
 
       const processText = async ({ done, value }: ReadableStreamReadResult<Uint8Array>) => {
         if (done) {
@@ -60,14 +60,20 @@ export class StreamOutputComponent implements OnInit, OnChanges, OnDestroy {
           return;
         }
 
-        if (value) {
-          partialText += decoder.decode(value, { stream: true });
-          const messages = partialText.split('\n\n').filter(Boolean);
-          for (const message of messages) {
-            const cleanMessage = this.cleanDataPrefix(message);
-            this.displayedText += this.formatText(cleanMessage);
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+
+        for (const line of lines) {
+          const trimmedLine = line.trim();
+          if (trimmedLine === '[DONE]') {
+            this.streamComplete.emit();
+            return;
+          } else if (trimmedLine.startsWith('[CLEANED_TEXT]')) {
+            this.displayedText = trimmedLine.slice(13, -14).trim();
+          } else {
+            this.displayedText += this.formatText(this.cleanDataPrefix(trimmedLine));
           }
-          partialText = messages.length ? messages[messages.length - 1] : '';
         }
 
         reader.read().then(processText).catch(error => {
